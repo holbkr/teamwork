@@ -31,89 +31,65 @@ function insertionSort(arr) {
 function numberFactorMemo(n, memo = {}) {
     if (n === 0 || n === 1 || n === 2) return 1;
     if (n === 3) return 2;
-
     if (n in memo) return memo[n];
-
-    memo[n] =
-        numberFactorMemo(n - 1, memo) +
-        numberFactorMemo(n - 3, memo) +
-        numberFactorMemo(n - 4, memo);
-
+    memo[n] = numberFactorMemo(n - 1, memo) + numberFactorMemo(n - 3, memo) + numberFactorMemo(n - 4, memo);
     return memo[n];
-}
-
 function getSumUnique(arr) {
     let sum = 0;
     let counts = {};
-
     for (let i = 0; i < arr.length; i++) {
         let num = arr[i];
         counts[num] = (counts[num] || 0) + 1;
     }
-
     for (let key in counts) {
         if (counts[key] === 1) {
             sum += Number(key);
         }
     }
-
     return sum;
 }
 
 function getFirstNonRepeating(arr) {
     let counts = {};
-
     for (let i = 0; i < arr.length; i++) {
         let num = arr[i];
         counts[num] = (counts[num] || 0) + 1;
     }
-
     for (let i = 0; i < arr.length; i++) {
         if (counts[arr[i]] === 1) {
             return arr[i];
         }
     }
-
     return null;
 }
 
 function getCountOccurrences(arr) {
     let counts = {};
-
     for (let i = 0; i < arr.length; i++) {
         let num = arr[i];
         counts[num] = (counts[num] || 0) + 1;
     }
-
     return counts;
 }
-
 function numberFactorTab(n) {
     if (n === 0 || n === 1 || n === 2) return 1;
     if (n === 3) return 2;
-
     let dp = new Array(n + 1);
-
     dp[0] = 1;
     dp[1] = 1;
     dp[2] = 1;
     dp[3] = 2;
-
     for (let i = 4; i <= n; i++) {
         dp[i] = dp[i - 1] + dp[i - 3] + dp[i - 4];
     }
-
     return dp[n];
 }
 
 function displayResult(title, content) {
     const resultsDiv = document.getElementById('results');
-
     const div = document.createElement('div');
     div.className = 'result-item';
-
-    div.innerHTML = `<strong>${title}:</strong> ${JSON.stringify(content)}`;
-
+    div.innerHTML = <strong>${title}:</strong> ${JSON.stringify(content)};
     resultsDiv.appendChild(div);
 }
 
