@@ -71,3 +71,41 @@ function getCountOccurrences(arr) {
     }
     return counts;
 }
+function numberFactorTab(n) {
+    if (n === 0 || n === 1 || n === 2) return 1;
+    if (n === 3) return 2;
+    let dp = new Array(n + 1);
+    dp[0] = 1;
+    dp[1] = 1;
+    dp[2] = 1;
+    dp[3] = 2;
+    for (let i = 4; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 3] + dp[i - 4];
+    }
+    return dp[n];
+}
+
+function displayResult(title, content) {
+    const resultsDiv = document.getElementById('results');
+    const div = document.createElement('div');
+    div.className = 'result-item';
+    div.innerHTML = <strong>${title}:</strong> ${JSON.stringify(content)};
+    resultsDiv.appendChild(div);
+}
+
+function init() {
+    const arr = teamData.testArray;
+    const n = teamData.testNumber;
+
+    displayResult('Sum Unique', getSumUnique(arr));
+    displayResult('First Non Repeating', getFirstNonRepeating(arr));
+    displayResult('Count Occurrences', getCountOccurrences(arr));
+
+    displayResult('Selection Sort', selectionSort([...arr]));
+    displayResult('Insertion Sort', insertionSort([...arr]));
+
+    displayResult('Number Factor Memo', numberFactorMemo(n));
+    displayResult('Number Factor Tab', numberFactorTab(n));
+}
+
+window.onload = init;
